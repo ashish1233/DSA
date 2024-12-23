@@ -48,11 +48,11 @@ var postorderTraversal = function(root) {
             if (node.left) stack.push(node.left);
             if (node.right) stack.push(node.right);
             }
-            console.log(result, "result")
+          
            return result.reverse(); // Reverse to get post-order
         }
 
-           // return result;
+           return result;
 
         }
 
