@@ -6,7 +6,6 @@ var canJump = function(nums) {
      let max =0
 	for(let i=0; i< nums.length; i++){
         if(i> max){
-            
 			return false
 		}
 		let num = i+ nums[i]
