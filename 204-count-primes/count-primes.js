@@ -8,7 +8,7 @@ var countPrimes = function(n) {
         return 0
     }
     function isPrime(num){
-        //if (num <= 1) return false; // 0 and 1 are not prime numbers
+        if (num <= 1) return false; // 0 and 1 are not prime numbers
          if (num <= 3) return true; // 2 and 3 are prime numbers
           if (num % 2 === 0 || num % 3 === 0) return false;
 
