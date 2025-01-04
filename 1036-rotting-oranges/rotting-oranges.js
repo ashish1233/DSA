@@ -3,49 +3,54 @@
  * @return {number}
  */
 var orangesRotting = function(grid) {
-       const rows = grid.length;
-    const cols = grid[0].length;
-    const directions = [
-        [0, 1],   // Right
-        [1, 0],   // Down
-        [0, -1],  // Left
-        [-1, 0]   // Up
-    ];
-    
-    let queue = []; // To store rotten oranges with their timestamp
-    let freshCount = 0; // Count of fresh oranges
-    
-    // Initialize the queue with all rotten oranges and count fresh oranges
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            if (grid[i][j] === 2) {
-                queue.push([i, j, 0]); // [row, col, minutesElapsed]
-            } else if (grid[i][j] === 1) {
-                freshCount++;
-            }
+   let m= grid.length
+   let n= grid[0].length
+
+   let freshOranges = 0
+   let queue = []
+   for(let i=0; i<m; i++){
+     for(let j=0; j<n; j++){
+        if(grid[i][j]==2){
+           queue.push([i,j])
         }
-    }
-    
-    let minutes = 0; // Track the time taken for all oranges to rot
-    
-    // Perform BFS
-    while (queue.length > 0) {
-        const [x, y, time] = queue.shift();
-        minutes = time; // Update minutes to the current time
+        else if(grid[i][j]==1){
+            freshOranges++
+        }
+     }
+   }
+   
+   if(freshOranges ==0){
+      return 0
+   }
+   let directions = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0]
+   ]
+   let minutes =0
+   while(queue.length > 0){
+        let size = queue.length
         
-        for (const [dx, dy] of directions) {
-            const nx = x + dx;
-            const ny = y + dy;
-            
-            // Check if the adjacent cell is valid and has a fresh orange
-            if (nx >= 0 && nx < rows && ny >= 0 && ny < cols && grid[nx][ny] === 1) {
-                grid[nx][ny] = 2; // Rot the fresh orange
-                freshCount--; // Decrease the fresh orange count
-                queue.push([nx, ny, time + 1]); // Add to queue with updated time
-            }
+        let rotten = false
+        for(let i=0; i<size; i++){
+             let [rci, rcj] = queue.shift()    
+             for(let i=0; i<directions.length; i++){
+                  let [row, col] = directions[i]
+                  let newCordinateRow = rci + row
+                  let newCordinateCol =  rcj + col
+                
+                  if(newCordinateRow >=0 && newCordinateRow < m && newCordinateCol>=0 && newCordinateCol<n && grid[newCordinateRow][newCordinateCol] ==1 ){
+                        grid[newCordinateRow][newCordinateCol] = 2
+                        freshOranges--
+                        rotten = true
+                        queue.push([newCordinateRow, newCordinateCol ])
+                  }
+             }
         }
-    }
-    
-    // If there are still fresh oranges left, return -1
-    return freshCount === 0 ? minutes : -1;
+        if(rotten){
+            minutes++
+        }
+   }
+    return freshOranges == 0 ? minutes : -1 
 };
