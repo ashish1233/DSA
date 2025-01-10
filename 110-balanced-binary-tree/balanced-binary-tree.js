@@ -10,26 +10,26 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-
-
-function getHeight(node){
+var isBalanced = function(root) {
+    function checkHeight(node){
             if(node == null){
                 return 0
             }
-           return Math.max(getHeight(node.left), getHeight(node.right)) + 1
-}
- 
-var isBalanced = function(root) {
-        
-        if (root === null) return true;
+            let lh = checkHeight(node.left)
+             if(lh ==-1){
+                return -1
+            }
 
-        let lh = getHeight(root.left)
-        let rh = getHeight(root.right)
+            let rh= checkHeight(node.right)
+            if(rh ==-1){
+                return -1
+            }
 
-        if(Math.abs(lh-rh)> 1){
-            return false
-        }
+            if(Math.abs(lh-rh) > 1){
+                return -1
+            }
 
-        return isBalanced(root.left) && isBalanced(root.right)
-
+            return Math.max(lh, rh) +1
+    }
+    return checkHeight(root) != -1
 };
