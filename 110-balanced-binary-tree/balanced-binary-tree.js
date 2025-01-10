@@ -10,24 +10,26 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
+
+
+function getHeight(node){
+            if(node == null){
+                return 0
+            }
+           return Math.max(getHeight(node.left), getHeight(node.right)) + 1
+}
+ 
 var isBalanced = function(root) {
-       function checkHeight(node) {
-        if (!node) return 0; // A null tree has height 0
+        
+        if (root === null) return true;
 
-        // Recursively get the height of the left and right subtrees
-        const leftHeight = checkHeight(node.left);
-        const rightHeight = checkHeight(node.right);
+        let lh = getHeight(root.left)
+        let rh = getHeight(root.right)
 
-        // If either subtree is unbalanced, propagate -1
-        if (leftHeight === -1 || rightHeight === -1) return -1;
+        if(Math.abs(lh-rh)> 1){
+            return false
+        }
 
-        // If the current node is unbalanced, return -1
-        if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+        return isBalanced(root.left) && isBalanced(root.right)
 
-        // Return the height of the current tree
-        return Math.max(leftHeight, rightHeight) + 1;
-    }
-
-    // Check if the tree is balanced
-    return checkHeight(root) !== -1;
 };
