@@ -11,79 +11,25 @@
  * @return {ListNode}
  */
 var detectCycle = function(head) {
-
-    let slow = head
-    let fast = head
-    let hasCycle = false
-
-    if(head == null || head.next == null){
+    if(!head || !head.next){
         return null
     }
+    let slow = head
+    let fast = head
 
-   
-    while(fast !=null &&  fast.next !=null){
-       
+    while(fast && fast.next){
         slow = slow.next
         fast = fast.next.next
         if(slow == fast){
-            hasCycle = true
-            break
+            let pointer1 = head
+            let pointer2 = slow
+
+            while(pointer1 != pointer2){
+                pointer1= pointer1.next
+                pointer2 = pointer2.next
+            }
+            return pointer1
         }
-         
     }
-    
-    fast = head
-   console.log(slow.val, fast.val, "slooow fast")
-    while( hasCycle && fast.next !=null){
-        if(slow == fast){
-            return slow
-          
-        }
-        slow = slow.next
-        fast = fast.next
-    }
-    
     return null
-
 };
-
-
-// T.c: O(n), space: O(n)
-
-//  let map = new Map()
-//     let temp = head
-//     let i = -1
-//     while(head !=null){
-//       if( map.has(head)){
-//           return head
-//       }
-//       else{
-//          map.set(head,  ++i)
-//       }
-//        head = head.next
-//     }
-//     return null
-
-
-//    if(head == null || head.next == null){
-//      return null
-//    }
-
-//    let slow = head
-//    let fast = head
-//    let entry = head
-
-//    while(fast.next != null && fast.next.next != null){
-//         slow = slow.next
-//         fast = fast.next.next
-
-//         if(slow == fast){
-//             while(slow != entry){
-//                 slow = slow.next
-//                 entry = entry.next
-//             }
-//             return entry
-//         }
-//    }
-//     return null
-    
