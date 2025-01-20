@@ -13,13 +13,14 @@
  */
 var insertIntoBST = function(root, val) {
     //let result = []
-     let current = root
-    function helper(current, prev, val){   
-        if(!current){
-            if(!prev){
+    if(!root){
                 let root = new TreeNode(val)
                 return root
             }
+     let current = root
+    function helper(current, prev, val){   
+        if(!current){
+
             if(prev.val > val){
                 prev.left = new TreeNode(val)
             }
