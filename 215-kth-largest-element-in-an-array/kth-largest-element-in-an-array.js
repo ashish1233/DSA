@@ -70,12 +70,10 @@ var findKthLargest = function(nums, k) {
     for (const num of nums) {
         minHeap.insert(num);
 
-        // Keep the heap size at most k
         if (minHeap.size() > k) {
         minHeap.removeMin();
         }
     }
 
-    // The root of the heap is the kth largest element
     return minHeap.peek();
 };
