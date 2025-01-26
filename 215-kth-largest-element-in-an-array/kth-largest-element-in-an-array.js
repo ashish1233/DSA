@@ -24,11 +24,12 @@
 
   heapifyUp() {
     let index = this.heap.length - 1;
-    while (this.getParentIndex(index) >= 0 &&
-           this.heap[this.getParentIndex(index)] > this.heap[index]) {
-      this.swap(this.getParentIndex(index), index);
-      index = this.getParentIndex(index);
-    }
+    let parent = Math.floor((index - 1) / 2);
+     while (index > 0 && this.heap[index] < this.heap[parent]) {
+            [this.heap[index], this.heap[parent]] = [this.heap[parent], this.heap[index]];
+            index = parent;
+            parent = Math.floor((index - 1) / 2);
+     }
   }
 
   removeMin() {
